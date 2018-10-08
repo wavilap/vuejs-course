@@ -8,8 +8,22 @@
 </head>
 <body>
   <div id="app">
-    <h1>{{ titulo | uppercase }}</h1>
-    <h2>{{ subtitulo | lowercase }}</h2>
+    <input type="text" name="nombre" placeholder="Ingresa tu nombre" v-model="nombre">
+    <p>Tu nombre en mayúscula es {{ nombre | uppercase }}</p>
+
+    <form @submit.prevent="submit" action="" action="get">
+      <h2>¿Cuáles son tus cursos favoritos?</h2>
+      <input v-model="cursos" type="checkbox" id="vue" value="vue">
+      <label for="vue">Curso de Vue.js</label>
+      <input v-model="cursos" type="checkbox" id="seo" value="seo">
+      <label for="seo">Curso de SEO</label>
+      <input v-model="cursos" type="checkbox" id="react" value="react">
+      <label for="react">Curso de React y Redux</label>
+      <input v-model="cursos" type="checkbox" id="growth" value="growth">
+      <label for="growth">Curso de Growth Marketing</label>
+      <br><br>
+      <button type="submit">ENVIAR</button>
+    </form>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -17,20 +31,18 @@
     let app = new Vue({
       el: '#app',
       data: {
-        titulo: 'Estás en Platzi',
-        subtitulo: 'Estás viendo el curso de Vue.js'
+        nombre: '',
+        cursos: []
       },
       filters: {
         uppercase: function (str) {
           return str.toUpperCase();
-        },
-        lowercase: function (str) {
-          return str.toLowerCase();
-        },
-        capitalize: function (str) {
-          return str.split(' ')
-                    .map(x => x[0].toUpperCase() + x.slice(1).toLowerCase())
-                    .join(' ');
+        }
+      },
+      methods: {
+        submit: function () {
+          console.log('Se ejecuta el método submit');
+          console.log(this.cursos)
         }
       }
     })
